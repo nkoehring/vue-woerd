@@ -1,4 +1,4 @@
-import HTMLParser from './htmlparser2'
+import HTMLParser from './htmlparser'
 
 // tags to support: p, a, b, i, s, img, h[1-6], hr
 // <p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>.</p>
