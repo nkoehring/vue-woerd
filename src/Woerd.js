@@ -17,7 +17,7 @@ export default {
   },
   data () {
     return {
-      content: '<p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>.</p>'
+      content: '<p>Hello <i>World</i>. This <s class="foo">was</s><b>is</b> a <i>test</i>.</p>'
     }
   },
   methods: {

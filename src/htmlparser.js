@@ -18,7 +18,9 @@ function fromHTML (str, index = 0) {
     // tag opens
     if (c === '<' && d !== '/') {
       ptr = str.indexOf('>', i)
-      const tag = str.slice(i, ptr++)
+      const snip = str.slice(i, ptr++)
+      const sepIdx = snip.indexOf(' ')
+      const tag = sepIdx < 0 ? snip : snip.slice(0, sepIdx)
       const parent = leaf
       leaf = { tag, index: leaf.content.length, content: '', children: [] }
       leaf.parent = parent
