@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-woerd</title>
+  <script src="/node_modules/vue/dist/vue.min.js"></script>
+  <script src="/dist/index.js"></script>
+</head>
+<body>
+  <div id="expectation">
+    <p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>.</p>
+  </div>
+  <div id="demo">
+    <vue-woerd />
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#demo',
+      components: { vueWoerd: woerd.default },
+      data: {}
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "name": "woerd",
+  "version": "0.0.1",
+  "description": "slim rich text editor for Vue2",
+  "main": "./dist/index.js",
+  "author": "koehr <n@koehr.in>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --progress --hide-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nkoehring/woerd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nkoehring/woerd/issues"
+  },
+  "homepage": "https://github.com/nkoehring/woerd#readme",
+  "keywords": [
+    "vue",
+    "vue2",
+    "rich text",
+    "wysiwyg"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-runtime": "^6.23.0",
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.15.0",
+    "vue": "^2.2.6",
+    "vue-html-loader": "^1.2.4",
+    "vue-loader": "^11.3.4",
+    "vue-style-loader": "^2.0.4",
+    "vue-template-compiler": "^2.2.6",
+    "webpack": "^2.2.1"
+  },
+  "browserify": {
+    "transform": [
+      "vueify"
+    ]
+  },
+  "dependencies": {}
+}
