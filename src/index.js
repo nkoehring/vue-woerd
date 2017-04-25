@@ -1,2 +1,4 @@
 import Woerd from './Woerd'
-export default Woerd
+import HTMLParser from './htmlparser'
+
+export default { Woerd, HTMLParser }

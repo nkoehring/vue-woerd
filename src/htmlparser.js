@@ -34,7 +34,9 @@ function fromHTML (str, index = 0) {
 
     // text node
     } else {
-      leaf.content += c
+      ptr = str.indexOf('<', ptr)
+      leaf.content += c + str.slice(i, ptr)
+      if (ptr === -1) ptr = str.length
     }
   }
 
