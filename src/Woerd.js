@@ -1,14 +1,15 @@
 import HTMLParser from './htmlparser'
 
 // tags to support: p, a, b, i, s, img, h[1-6], hr
-// <p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>.</p>
+// <p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>.<img src="foo.svg" alt="some image"></p>
 const content = [
-  { tag: 'p', index: 0, content: 'Hello . This  a .', children: [
-    { tag: 'i', index: 6, content: 'World', children: [] },
-    { tag: 's', index: 13, content: 'was', children: [] },
-    { tag: 'b', index: 13, content: 'is', children: [] },
-    { tag: 'i', index: 16, content: 'test', children: [] }
-  ]}
+  { tag: 'p', index: 0, attrs: {}, content: 'Hello . This  a .', children: [
+    { tag: 'i', index: 6, attrs: {}, content: 'World', children: [] },
+    { tag: 's', index: 13, attrs: {}, content: 'was', children: [] },
+    { tag: 'b', index: 13, attrs: {}, content: 'is', children: [] },
+    { tag: 'i', index: 16, attrs: {}, content: 'test', children: [] },
+    { tag: 'img', index: 17, attrs: {src:'foo.svg', alt:'some image'}, content: '', children: [] }
+  ]},
 ]
 
 export default {
@@ -17,7 +18,7 @@ export default {
   },
   data () {
     return {
-      content: '<p>Hello <i>World</i>. This <s class="foo">was</s><b>is</b> a <i>test</i>.</p>'
+      content: '<p>Hello <i>World</i>. This <s class="foo">was</s><b>is</b> a <i>test</i>.<img src="foo.svg" alt="some image"></p>'
     }
   },
   methods: {
@@ -47,8 +48,7 @@ export default {
       }
 
       nodes.push(text.slice(lastIdx))
-
-      return h(node.tag, nodes)
+      return h(node.tag, {attrs: node.attrs}, nodes)
     }
   },
   render (h) {

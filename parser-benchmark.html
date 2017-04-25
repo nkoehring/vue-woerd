@@ -622,8 +622,10 @@
   // var template = '<p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>!'
   // console.log(woerd.default.HTMLParser(template))
 
-    // 'content += c' result: ~550ms
-    // 'content += c + str.slice' result: ~70ms (!)
+    // Nokogiri XML parser:              ~250ms (the HTML parser is way slower)
+    // add one character at a time:      ~550ms
+    // add whole string and shift cursor: ~70ms (before attribute support)
+    //                                   ~103ms (with support for attributes)
     var template = document.body.children[0].outerHTML
     console.time('parse')
     for (var i = 0; i < 1000; i++) woerd.default.HTMLParser(template)

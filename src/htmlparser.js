@@ -1,5 +1,7 @@
+const selfClosing = ['img', 'br']
+
 function fromHTML (str, index = 0) {
-  let el = { tag: 'div', index, content: '', children: [] }
+    let el = { tag: 'div', index, content: '', children: [] }
   let ptr = 0
   let tIdx = 0
   let leaf = el
@@ -19,12 +21,37 @@ function fromHTML (str, index = 0) {
     if (c === '<' && d !== '/') {
       ptr = str.indexOf('>', i)
       const snip = str.slice(i, ptr++)
+
+      // in case the element has properties (eg <a href> instead of just <a>)
+      const attrs = {}
       const sepIdx = snip.indexOf(' ')
-      const tag = sepIdx < 0 ? snip : snip.slice(0, sepIdx)
+      let startIdx = sepIdx + 1, endIdx, tag
+      let tmp = 3
+
+      if (sepIdx < 0) { // no properties, easy peasy
+        tag = snip
+      } else {          // has properties, shizzle damnizzle
+        tag = snip.slice(0, sepIdx)
+        while (tmp--) {
+          endIdx = snip.indexOf('=', startIdx)
+
+          if (endIdx < 0) break
+          const key = snip.slice(startIdx, endIdx)
+
+          startIdx = endIdx + 2
+          endIdx = snip.indexOf('"', startIdx)
+          attrs[key] = snip.slice(startIdx, endIdx)
+
+          startIdx = endIdx + 2
+        }
+      }
+
       const parent = leaf
-      leaf = { tag, index: leaf.content.length, content: '', children: [] }
+      leaf = { tag, attrs, index: leaf.content.length, content: '', children: [] }
       leaf.parent = parent
       parent.children.push(leaf)
+
+      if (selfClosing.indexOf(tag) >= 0) leaf = parent
 
     // tag closes
     } else if (c === '<' && d === '/') {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="155" height="30">
+  <defs>
+    <linearGradient id="gradient-38566105" x1="0" x2="0" y1="1" y2="0">
+      <stop offset="10%" stop-color="#c6e48b"></stop>
+      <stop offset="33%" stop-color="#7bc96f"></stop>
+      <stop offset="66%" stop-color="#239a3b"></stop>
+      <stop offset="90%" stop-color="#196127"></stop>
+    </linearGradient>
+    <mask id="sparkline-38566105" x="0" y="0" width="155" height="28">
+      <polyline transform="translate(0, 28) scale(1,-1)" points="0,19.14 3,11.5 6,17.23 9,13.09 12,8.95 15,18.18 18,27.73 21,27.09 24,29.0 27,15.32 30,24.86 33,28.05 36,19.14 39,14.36 42,23.59 45,18.5 48,15.0 51,15.95 54,11.5 57,19.45 60,11.82 63,15.95 66,8.95 69,8.64 72,12.77 75,25.18 78,15.95 81,11.18 84,10.23 87,15.32 90,10.86 93,19.45 96,15.64 99,19.45 102,9.91 105,5.14 108,12.77 111,10.55 114,11.5 117,17.23 120,10.86 123,14.05 126,11.82 129,16.27 132,13.73 135,12.45 138,20.41 141,16.27 144,13.73 147,14.68 150,3.55 153,16.59 " fill="transparent" stroke="#8cc665" stroke-width="2">
+      </polyline>
+    </mask>
+  </defs>
+
+  <g transform="translate(0, 2.0)">
+    <rect x="0" y="-2" width="155" height="30" style="stroke: none; fill: url(#gradient-38566105); mask: url(#sparkline-38566105)"></rect>
+  </g>
+</svg>
