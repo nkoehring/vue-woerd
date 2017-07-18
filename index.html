@@ -3,27 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>vue-woerd</title>
-  <script src="/node_modules/vue/dist/vue.min.js"></script>
-  <script src="/dist/index.js"></script>
   <style>
     p { line-height: 30px; }
     p > * { vertical-align: top; }
-    .foo { color: #A00; }
   </style>
 </head>
 <body>
-  <div id="expectation">
-    <p>Hello <i>World</i>. This <s class="foo">was</s><b>is</b> a <i>test</i>.<img src="foo.svg" alt="some image"></p>
-  </div>
   <div id="demo">
-    <vue-woerd />
+    <h1>REFERENCE</h1>
+    <div id="input">
+      <p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>.<img src="foo.svg" alt="some image"></p>
+    </div>
+
+    <h1>OUTPUT</h1>
+    <div id="output"></div>
   </div>
+  <script src="/dist/index.js"></script>
   <script>
-    var app = new Vue({
-      el: '#demo',
-      components: { vueWoerd: woerd.default.Woerd },
-      data: {}
-    })
+    const inputEl = document.getElementById('input')
+    const outputEl = document.getElementById('output')
+    const node = woerd.fromNative(inputEl.children[0])
+    console.log(node)
+    outputEl.innerHTML = woerd.toNative(document, node)
   </script>
 </body>
 </html>

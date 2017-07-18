@@ -1,4 +1,12 @@
-import Woerd from './Woerd'
+import * as w from './Woerd'
 import HTMLParser from './htmlparser'
 
-export default { Woerd, HTMLParser }
+const Woerd = {
+  HTMLParser,
+  fromVDOM: w.fromVDOM,
+  toVDOM: w.toVDOM,
+  fromNative: w.fromNative,
+  toNative: w.toNative
+}
+
+export default Woerd
