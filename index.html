@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>vue-woerd</title>
+  <title>woerd</title>
   <style>
     p { line-height: 30px; }
     p > * { vertical-align: top; }
@@ -24,7 +24,7 @@
     const outputEl = document.getElementById('output')
     const node = woerd.fromNative(inputEl.children[0])
     console.log(node)
-    outputEl.innerHTML = woerd.toNative(document, node)
+    outputEl.appendChild(woerd.toNative(document, node))
   </script>
 </body>
 </html>

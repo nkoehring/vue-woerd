@@ -1,16 +1,21 @@
 import closure from 'rollup-plugin-closure-compiler-js'
 import filesize from 'rollup-plugin-filesize'
-import babel from 'rollup-plugin-babel'
 
-const plugins = [
-  babel({
-    exclude: 'node_modules/**',
-    presets: [['env', {modules: false}]],
-    plugins: ["external-helpers"]
-  }),
-  closure({ compilationLevel: 'SIMPLE' }),
-  filesize()
-]
+
+
+const plugins = []
+
+if (process.env.production) {
+  plugins.push(
+    closure({
+      languageIn: 'ECMASCRIPT6',
+      languageOut: 'ECMASCRIPT5',
+      compilationLevel: 'SIMPLE',
+      warningLevel: 'DEFAULT',
+    }),
+    filesize()
+  )
+}
 
 export default {
   entry: 'src/index.js',

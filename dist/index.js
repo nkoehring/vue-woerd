@@ -1,11 +1,201 @@
-var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(a,e,m){a!=Array.prototype&&a!=Object.prototype&&(a[e]=m.value)};$jscomp.getGlobal=function(a){return"undefined"!=typeof window&&window===a?a:"undefined"!=typeof global&&null!=global?global:a};$jscomp.global=$jscomp.getGlobal(this);$jscomp.SYMBOL_PREFIX="jscomp_symbol_";
-$jscomp.initSymbol=function(){$jscomp.initSymbol=function(){};$jscomp.global.Symbol||($jscomp.global.Symbol=$jscomp.Symbol)};$jscomp.symbolCounter_=0;$jscomp.Symbol=function(a){return $jscomp.SYMBOL_PREFIX+(a||"")+$jscomp.symbolCounter_++};
-$jscomp.initSymbolIterator=function(){$jscomp.initSymbol();var a=$jscomp.global.Symbol.iterator;a||(a=$jscomp.global.Symbol.iterator=$jscomp.global.Symbol("iterator"));"function"!=typeof Array.prototype[a]&&$jscomp.defineProperty(Array.prototype,a,{configurable:!0,writable:!0,value:function(){return $jscomp.arrayIterator(this)}});$jscomp.initSymbolIterator=function(){}};$jscomp.arrayIterator=function(a){var e=0;return $jscomp.iteratorPrototype(function(){return e<a.length?{done:!1,value:a[e++]}:{done:!0}})};
-$jscomp.iteratorPrototype=function(a){$jscomp.initSymbolIterator();a={next:a};a[$jscomp.global.Symbol.iterator]=function(){return this};return a};$jscomp.iteratorFromArray=function(a,e){$jscomp.initSymbolIterator();a instanceof String&&(a+="");var m=0,g={next:function(){if(m<a.length){var n=m++;return{value:e(n,a[n]),done:!1}}g.next=function(){return{done:!0,value:void 0}};return g.next()}};g[Symbol.iterator]=function(){return g};return g};
-$jscomp.polyfill=function(a,e,m,g){if(e){m=$jscomp.global;a=a.split(".");for(g=0;g<a.length-1;g++){var n=a[g];n in m||(m[n]={});m=m[n]}a=a[a.length-1];g=m[a];e=e(g);e!=g&&null!=e&&$jscomp.defineProperty(m,a,{configurable:!0,writable:!0,value:e})}};$jscomp.polyfill("Array.prototype.keys",function(a){return a?a:function(){return $jscomp.iteratorFromArray(this,function(a){return a})}},"es6","es3");var module$Input_0={};
-(function(a,e){"object"===typeof module$Input_0&&"undefined"!==typeof module?module$Input_0=e():"function"===typeof define&&define.amd?define(e):a.woerd=e()})(this,function(){function a(h){for(var k=1<arguments.length&&void 0!==arguments[1]?arguments[1]:0,l=h.tag,c="",f=[],b=0;b<h.children.length;b++){var d=h.children[b];d.text?c+=d.text:d.tag&&f.push(a(d,c.length))}return{tag:l,index:k,content:c,children:f}}function e(a,k){for(var h=k.content,c=[],f=0,b=0;b<k.children.length;b++){var d=k.children[b];
-c.push(h.slice(f,d.index));c.push(e(a,d));f=d.index}c.push(h.slice(f));return a(k.tag,{attrs:k.attrs},c)}function m(a){for(var h=1<arguments.length&&void 0!==arguments[1]?arguments[1]:0,l=a.tagName,c="",f=[],b=0;b<a.children.length;b++){var d=a.children[b];d.nodeType===d.TEXT_NODE?c+=d.textContent:d.nodeType===d.ELEMENT_NODE&&f.push(m(d,c.length))}return{tag:l,index:h,content:c,children:f}}function g(a,k){for(var h=a.createTextNode,c=k.content,f=[],b=0,d=0;d<k.children.length;d++){var e=k.children[d];
-f.push(h(c.slice(b,e.index)));f.push(g(a,e));b=e.index}f.push(c.slice(b));h=k.attrs;a=a.createElement(k.tag);k=Object.keys(h);c=0;for(b=k[c];c<k.length;c++)a.setAttribute(b,h[b]);for(k=0;k<f.length;k++)a.appendChild(f[k]);return a}var n=["img","br"];return{HTMLParser:function(a){var e={tag:"div",index:1<arguments.length&&void 0!==arguments[1]?arguments[1]:0,content:"",children:[]},l=0,c=e;a=a.trim();"\x3c"===a[0]&&(l=a.indexOf("\x3e"),e.tag=a.slice(1,l++));for(;l<a.length;){var f=a[l++],b=a[l],d=
-l;if("\x3c"===f&&"/"!==b){l=a.indexOf("\x3e",d);b=a.slice(d,l++);f={};var g=b.indexOf(" ");d=g+1;var m=3;if(0>g)g=b;else for(g=b.slice(0,g);m--;){var h=b.indexOf("\x3d",d);if(0>h)break;var p=b.slice(d,h);d=h+2;h=b.indexOf('"',d);f[p]=b.slice(d,h);d=h+2}b=c;c={tag:g,attrs:f,index:c.content.length,content:"",children:[]};c.parent=b;b.children.push(c);0<=n.indexOf(g)&&(c=b)}else"\x3c"===f&&"/"===b?(l=a.indexOf("\x3e",d),f=a.slice(d+1,l++),f!==c.tag?console.warn("Malformed HTML! Expected",c.tag,"but got",
-f):c=c.parent):(l=a.indexOf("\x3c",l),c.content+=f+a.slice(d,l),-1===l&&(l=a.length))}return e},fromVDOM:a,toVDOM:e,fromNative:m,toNative:g}});
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.woerd = factory());
+}(this, (function () { 'use strict';
+
+const selfClosing = ['img', 'br'];
+
+function fromHTML (str, index = 0) {
+    let el = { tag: 'div', index, content: '', children: [] };
+  let ptr = 0;
+  let tIdx = 0;
+  let leaf = el;
+  str = str.trim();
+
+  if (str[0] === '<') {
+    ptr = str.indexOf('>');
+    el.tag = str.slice(1, ptr++);
+  }
+
+  while (ptr < str.length) {
+    const c = str[ptr++];
+    const d = str[ptr];
+    const i = ptr;
+
+    // tag opens
+    if (c === '<' && d !== '/') {
+      ptr = str.indexOf('>', i);
+      const snip = str.slice(i, ptr++);
+
+      // in case the element has properties (eg <a href> instead of just <a>)
+      const attrs = {};
+      const sepIdx = snip.indexOf(' ');
+      let startIdx = sepIdx + 1, endIdx, tag;
+      let tmp = 3;
+
+      if (sepIdx < 0) { // no properties, easy peasy
+        tag = snip;
+      } else {          // has properties, shizzle damnizzle
+        tag = snip.slice(0, sepIdx);
+        while (tmp--) {
+          endIdx = snip.indexOf('=', startIdx);
+
+          if (endIdx < 0) break
+          const key = snip.slice(startIdx, endIdx);
+
+          startIdx = endIdx + 2;
+          endIdx = snip.indexOf('"', startIdx);
+          attrs[key] = snip.slice(startIdx, endIdx);
+
+          startIdx = endIdx + 2;
+        }
+      }
+
+      const parent = leaf;
+      leaf = { tag, attrs, index: leaf.content.length, content: '', children: [] };
+      leaf.parent = parent;
+      parent.children.push(leaf);
+
+      if (selfClosing.indexOf(tag) >= 0) leaf = parent;
+
+    // tag closes
+    } else if (c === '<' && d === '/') {
+      ptr = str.indexOf('>', i);
+      const closingTag = str.slice(i+1, ptr++);
+      if (closingTag !== leaf.tag)
+        console.warn('Malformed HTML! Expected', leaf.tag, 'but got', closingTag);
+      else leaf = leaf.parent;
+
+    // text node
+    } else {
+      ptr = str.indexOf('<', ptr);
+      leaf.content += c + str.slice(i, ptr);
+      if (ptr === -1) ptr = str.length;
+    }
+  }
+
+  return el
+}
+
+// usage: createNativeEl(document, "div", {attrs: {/*attributes*/}}, [/*children*/])
+function createNativeEl(d, tag, attrs, children) {
+  const el = d.createElement(tag);
+  const keys = Object.keys(attrs);
+
+  for (let i = 0; i < keys.length; i++) {
+    const k = keys[i];
+    const v = attrs[k];
+    el.setAttribute(k, v);
+  }
+  for (let i = 0; i < children.length; i++) el.appendChild(children[i]);
+
+  return el
+}
+
+
+/*
+ * tags to support: p, a, b, i, s, img, h[1-6], hr
+ *
+ * <p>Hello <i>World</i>. This <s>was</s><b>is</b> a <i>test</i>.<img src="foo.svg" alt="some image"></p>
+ * becomes
+ * const content = [
+ *   { tag: 'p', index: 0, attrs: {}, content: 'Hello . This  a .', children: [
+ *     { tag: 'i', index: 6, attrs: {}, content: 'World', children: [] },
+ *     { tag: 's', index: 13, attrs: {}, content: 'was', children: [] },
+ *     { tag: 'b', index: 13, attrs: {}, content: 'is', children: [] },
+ *     { tag: 'i', index: 16, attrs: {}, content: 'test', children: [] },
+ *     { tag: 'img', index: 17, attrs: {src:'foo.svg', alt:'some image'}, content: '', children: [] }
+ *   ]},
+ * ]
+ * and vice versa
+ */
+
+// usage: fromVDOM (vdomNode) -> woerdNode
+function fromVDOM (node, index = 0) {
+  const tag = node.tag;
+  const attrs = node.data.attrs;
+  let content = "";
+  let children = [];
+
+  for (let i = 0; i < node.children.length; i++) {
+    const c = node.children[i];
+    if (c.text) content += c.text;
+    else if (c.tag) children.push(fromVDOM(c, content.length));
+  }
+
+  return { tag, index, attrs, content, children }
+}
+
+// usage: toVDOM (createElementFunc, woerdNode) -> vdomNode
+function toVDOM (h, node) {
+  const text = node.content;
+  let nodes = [];
+  let lastIdx = 0;
+
+  for (let i = 0; i < node.children.length; i++) {
+    const c = node.children[i];
+    nodes.push(text.slice(lastIdx, c.index));
+    nodes.push(toVDOM(h, c));
+    lastIdx = c.index;
+  }
+
+  nodes.push(text.slice(lastIdx));
+  return h(node.tag, {attrs: node.attrs}, nodes)
+}
+
+// usage: fromNative (HTMLElement) -> woerdNode
+function fromNative (node, index = 0) {
+  const tag = node.tagName;
+  const attrs = {};
+  let content = "";
+  let children = [];
+
+  for (let i = 0; i < node.attributes.length; i++) {
+    const attr = node.attributes[i];
+    attrs[attr.name] = attr.value;
+  }
+
+  for (let i = 0; i < node.childNodes.length; i++) {
+    const c = node.childNodes[i];
+    if (c.nodeType === c.TEXT_NODE)
+      content += c.textContent;
+    else if (c.nodeType === c.ELEMENT_NODE)
+      children.push(fromNative(c, content.length));
+  }
+
+  return { tag, index, attrs, content, children }
+}
+
+// usage: toNative ({createElementFunc, createTextNodeFunc}, woerdNode) -> HTMLElement
+function toNative (d, node) {
+  const createEl = d.createElement;
+  const createTxt = d.createTextNode.bind(d);
+
+  const text = node.content;
+  let nodes = [];
+  let lastIdx = 0;
+
+  for (let i = 0; i < node.children.length; i++) {
+    const c = node.children[i];
+    nodes.push(createTxt(text.slice(lastIdx, c.index)));
+    nodes.push(toNative(d, c));
+    lastIdx = c.index;
+  }
+
+  nodes.push(createTxt(text.slice(lastIdx)));
+  return createNativeEl(d, node.tag, node.attrs, nodes)
+}
+
+const Woerd = {
+  HTMLParser: fromHTML,
+  fromVDOM: fromVDOM,
+  toVDOM: toVDOM,
+  fromNative: fromNative,
+  toNative: toNative
+};
+
+return Woerd;
+
+})));
 //# sourceMappingURL=index.js.map

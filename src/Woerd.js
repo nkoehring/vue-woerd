@@ -5,7 +5,11 @@ function createNativeEl(d, tag, attrs, children) {
   const el = d.createElement(tag)
   const keys = Object.keys(attrs)
 
-  for (let i = 0, k = keys[i]; i < keys.length; i++) el.setAttribute(k, attrs[k])
+  for (let i = 0; i < keys.length; i++) {
+    const k = keys[i]
+    const v = attrs[k]
+    el.setAttribute(k, v)
+  }
   for (let i = 0; i < children.length; i++) el.appendChild(children[i])
 
   return el
@@ -32,6 +36,7 @@ function createNativeEl(d, tag, attrs, children) {
 // usage: fromVDOM (vdomNode) -> woerdNode
 export function fromVDOM (node, index = 0) {
   const tag = node.tag
+  const attrs = node.data.attrs
   let content = ""
   let children = []
 
@@ -41,7 +46,7 @@ export function fromVDOM (node, index = 0) {
     else if (c.tag) children.push(fromVDOM(c, content.length))
   }
 
-  return { tag, index, content, children }
+  return { tag, index, attrs, content, children }
 }
 
 // usage: toVDOM (createElementFunc, woerdNode) -> vdomNode
@@ -64,24 +69,30 @@ export function toVDOM (h, node) {
 // usage: fromNative (HTMLElement) -> woerdNode
 export function fromNative (node, index = 0) {
   const tag = node.tagName
+  const attrs = {}
   let content = ""
   let children = []
 
-  for (let i = 0; i < node.children.length; i++) {
-    const c = node.children[i]
+  for (let i = 0; i < node.attributes.length; i++) {
+    const attr = node.attributes[i]
+    attrs[attr.name] = attr.value
+  }
+
+  for (let i = 0; i < node.childNodes.length; i++) {
+    const c = node.childNodes[i]
     if (c.nodeType === c.TEXT_NODE)
       content += c.textContent
     else if (c.nodeType === c.ELEMENT_NODE)
       children.push(fromNative(c, content.length))
   }
 
-  return { tag, index, content, children }
+  return { tag, index, attrs, content, children }
 }
 
 // usage: toNative ({createElementFunc, createTextNodeFunc}, woerdNode) -> HTMLElement
 export function toNative (d, node) {
   const createEl = d.createElement
-  const createTxt = d.createTextNode
+  const createTxt = d.createTextNode.bind(d)
 
   const text = node.content
   let nodes = []
@@ -94,6 +105,6 @@ export function toNative (d, node) {
     lastIdx = c.index
   }
 
-  nodes.push(text.slice(lastIdx))
+  nodes.push(createTxt(text.slice(lastIdx)))
   return createNativeEl(d, node.tag, node.attrs, nodes)
 }

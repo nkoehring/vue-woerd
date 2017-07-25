@@ -6,7 +6,8 @@
   "author": "koehr <n@koehr.in>",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
   },
   "repository": {
     "type": "git",
@@ -23,13 +24,10 @@
     "wysiwyg"
   ],
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.5.2",
     "rollup": "^0.42.0",
-    "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-closure-compiler-js": "^1.0.4",
     "rollup-plugin-filesize": "^1.4.2",
+    "rollup-watch": "^4.3.1",
     "webpack": "^2.2.1"
   },
   "dependencies": {}
