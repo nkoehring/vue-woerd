@@ -1,7 +1,7 @@
 const selfClosing = ['img', 'br']
 
 function fromHTML (str, index = 0) {
-    let el = { tag: 'div', index, content: '', children: [] }
+  let el = { tag: 'div', index, content: '', children: [] }
   let ptr = 0
   let tIdx = 0
   let leaf = el
