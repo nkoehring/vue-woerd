@@ -6,6 +6,32 @@
   <style>
     p { line-height: 30px; }
     p > * { vertical-align: top; }
+    #textarea {
+      position: relative;
+      border: 2px solid #AAA;
+      background: white;
+      width: 640px;
+      height: 400px;
+      cursor: pointer;
+    }
+    #hiddentextarea {
+      width: 640px;
+      height: 100px;
+      margin-top: 1em;
+    }
+    #textarea.focussed {
+      border: 2px inset grey;
+    }
+    #textarea.focussed > span:after {
+      content: "|";
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink {
+      0% { opacity: 1 }
+      45% { opacity: 1 }
+      46% { opacity: 0 }
+      100% { opacity: 0 }
+    }
   </style>
 </head>
 <body>
@@ -17,14 +43,47 @@
 
     <h1>OUTPUT</h1>
     <div id="output"></div>
+
+    <hr>
+
+    <div id="textarea"></div>
+    <textarea id="hiddentextarea"></textarea>
   </div>
   <script src="/dist/index.js"></script>
   <script>
     const inputEl = document.getElementById('input')
     const outputEl = document.getElementById('output')
+    const textArea = document.getElementById('textarea')
+    const hiddenTextArea = document.getElementById('hiddentextarea')
     const node = woerd.fromNative(inputEl.children[0])
-    console.log(node)
     outputEl.appendChild(woerd.toNative(document, node))
+
+    function hiddenTextAreaChangeHandler (evt) {
+      const plain = evt.target.value
+      const html = plain.replace('\n', '<br>')
+      textArea.innerHTML = '<span>' + html + '</span>'
+    }
+
+    function globalClickHandler (evt) {
+      let el = evt.target
+      while (el.tagName !== 'HTML') { // it's possible to click outside body
+        if (el === textArea) return
+        el = el.parentNode
+      }
+      textArea.classList.remove('focussed')
+      hiddenTextArea.removeEventListener('input', hiddenTextAreaChangeHandler)
+      document.removeEventListener('click', globalClickHandler)
+    }
+
+    textArea.addEventListener('click', function() {
+      textArea.classList.add('focussed')
+      hiddenTextArea.focus()
+      hiddenTextArea.addEventListener('input', hiddenTextAreaChangeHandler)
+      document.addEventListener('click', globalClickHandler)
+    })
+    textArea.addEventListener('input', function(evt) {
+      console.log("input", evt)
+    })
   </script>
 </body>
 </html>
